@@ -1,0 +1,18 @@
+{
+	"name": "Link Previewer Server",
+	"version": "1.0.0",
+	"author": {
+		"email": "info@sebabratakundu.com",
+		"name": "sebabrata kundu",
+		"url": "https://sebabratakundu.com"
+	},
+	"scripts": {
+		"dev": "nodemon server.js"
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1",
+		"open-graph-scraper": "^4.11.1"
+	}
+}
