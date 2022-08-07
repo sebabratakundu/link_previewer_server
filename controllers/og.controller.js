@@ -1,5 +1,4 @@
 const ogs = require('open-graph-scraper');
-const defaultCard = require('json-api/default.card.json');
 
 const getMetaData = async (req, res) => {
 	const options = req.query;
@@ -22,6 +21,13 @@ const getMetaData = async (req, res) => {
 				message: 'something went wrong!'
 			})
 	}
+}
+
+const defaultCard = {
+	ogTitle: 'Lorem Ipsum',
+	ogImage: 'https://placehold.jp/500x261.png',
+	ogUrl: 'https://example.com/',
+	ogDescription: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled'
 }
 
 const processResult = (metadata) => {
