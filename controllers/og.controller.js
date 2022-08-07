@@ -1,15 +1,8 @@
 const ogs = require('open-graph-scraper');
+const defaultCard = require('json-api/default.card.json');
 
 const getMetaData = async (req, res) => {
 	const options = req.query;
-
-	if (!validateUrl(options.url)) {
-		res.status(400)
-			.json({
-				message: 'please provide a valid url'
-			});
-		return;
-	}
 
 	try {
 		const {error, result} = await ogs(options);
@@ -20,8 +13,9 @@ const getMetaData = async (req, res) => {
 				});
 		}
 
+		const validResult = processResult(result);
 		res.status(200)
-			.json(result);
+			.json(validResult);
 	} catch (e) {
 		res.status(500)
 			.json({
@@ -30,10 +24,29 @@ const getMetaData = async (req, res) => {
 	}
 }
 
-const validateUrl = (url) => {
-	const urlRegEx = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig;
+const processResult = (metadata) => {
+	const ogTitle = metadata?.ogTitle || defaultCard.ogTitle;
+	const ogImage = metadata?.ogImage?.url || defaultCard.ogImage;
+	const ogUrl = metadata?.ogUrl || defaultCard.ogUrl;
+	const ogSiteName = metadata?.ogSiteName || ogUrl.substring(8, ogUrl.length - 1);
+	const ogDescription = metadata?.ogDescription || defaultCard.ogDescription;
+	const twitterTitle = metadata?.twitterTitle || defaultCard.ogTitle;
+	const twitterUrl = metadata?.twitterUrl || defaultCard.ogUrl;
+	const twitterImage = metadata?.twitterImage?.url || defaultCard.ogImage;
+	const favicon = metadata?.favicon || '';
 
-	return urlRegEx.test(url);
+	return {
+		ogTitle,
+		ogDescription,
+		ogImage,
+		ogUrl,
+		ogSiteName,
+		twitterTitle,
+		twitterImage,
+		twitterUrl,
+		favicon
+	}
+
 }
 
 module.exports = {
