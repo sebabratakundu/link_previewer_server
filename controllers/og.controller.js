@@ -7,7 +7,8 @@ const getMetaData = async (req, res) => {
 		res.status(400)
 			.json({
 				message: 'please provide a valid url'
-			})
+			});
+		return;
 	}
 
 	try {

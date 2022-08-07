@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-		openGraph.getMetaData(req, res);
+	openGraph.getMetaData(req, res);
 })
 
 app.all('*', function (req, res) {
@@ -24,5 +24,5 @@ app.all('*', function (req, res) {
 });
 
 app.listen(PORT, () => {
-		console.log(`'start listing to ${PORT}`)
+	console.log(`'start listing to ${PORT}`)
 })
